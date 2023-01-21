@@ -1,0 +1,25 @@
+name: 'jincco-action'
+description: 'Jincco Integration'
+inputs:
+  sourceDirectories:
+    description: 'Comma separated list of source directories relative to repository root'
+    required: true
+    default: 'src/main/java'
+  classDirectories:
+    description: 'Comma separated list of class directories relative to repository root'
+    required: true
+    default: 'build/classes/main/java'
+  execFiles:
+    description: 'Comma separated list of Jacoco exec files relative to repository root'
+    required: true
+    default: 'build/jacoco/test.exec'
+  pullRequest: 
+    description: 'Pull request number'
+    required: true
+    default: ${{ github.event.pull_request.number }}
+outputs:
+  pullRequestCoverage: # id of output
+    description: 'Pull request coverage'
+runs:
+  using: 'node16'
+  main: 'index.js'
