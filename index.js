@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-import App from './App';
+import App from './App.js';
 
 function parseArray(str) {
     return str.split(",");
