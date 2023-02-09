@@ -18,7 +18,7 @@ try {
   app.repository = core.getInput('repository');
   app.repositoryOwner = core.getInput('repositoryOwner');
   
-  app.execute()
+  await app.execute()
   
 
   const pullRequestCoverage = Math.random()*100;
