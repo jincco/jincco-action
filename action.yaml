@@ -27,10 +27,10 @@ inputs:
   repository:
     description: 'Github repository in the format, either "repo_name" or "owner/repo_name"'
     required: true
-    default: ${{ github.event.repository.name }}
+    default: ${{ github.repository }}
   repositoryOwner:
     description: 'Github repositoryOwner'
-    required: true
+    required: false
     default: ${{ github.event.repository_owner }}
 outputs:
   pullRequestCoverage: # id of output
