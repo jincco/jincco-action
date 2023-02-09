@@ -31,7 +31,7 @@ inputs:
   repositoryOwner:
     description: 'Github repositoryOwner'
     required: false
-    default: ${{ github.event.repository.owner }}
+    default: ${{ github.event.repository_owner }}
 outputs:
   pullRequestCoverage: # id of output
     description: 'Pull request coverage'
