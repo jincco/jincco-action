@@ -24,7 +24,6 @@ inputs:
   token: 
     description: 'Github Token'
     required: true
-    default: ${{ secrets.GITHUB_TOKEN }}
 outputs:
   pullRequestCoverage: # id of output
     description: 'Pull request coverage'
