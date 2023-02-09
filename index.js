@@ -15,6 +15,9 @@ try {
   app.pullRequest = core.getInput('pullRequest');
   app.serverUrl = core.getInput('serverUrl');
   app.token = core.getInput('token');
+  app.repository = core.getInput('repository');
+  app.repositoryOwner = core.getInput('repositoryOwner');
+  
   app.execute()
   
 
