@@ -30,7 +30,7 @@ inputs:
     default: ${{ github.event.repository.name }}
   repositoryOwner:
     description: 'Github repositoryOwner'
-    required: false
+    required: true
     default: ${{ github.event.repository_owner }}
 outputs:
   pullRequestCoverage: # id of output
