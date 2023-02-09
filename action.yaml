@@ -18,8 +18,13 @@ inputs:
     required: true
     default: ${{ github.event.pull_request.number }}
   serverUrl:
-    description: 'jincco server URL, e.g. http://localhost:8080'
+    description: 'Jincco server URL'
     required: true
+    default: https://jinccov.com
+  token: 
+    description: 'Github Token'
+    required: true
+    default: ${{ secrets.GITHUB_TOKEN }}
 outputs:
   pullRequestCoverage: # id of output
     description: 'Pull request coverage'

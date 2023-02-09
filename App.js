@@ -17,6 +17,9 @@ class App {
     pullRequest = null;
     serverUrl = null;
     repoRootDirectory = ".";
+    token = null;
+    repository = null;
+	repositoryOwner = null;
 
     constructor() {
     }
@@ -53,6 +56,8 @@ class App {
         let mapping = await this.compressDirectories(zipFile)
 
         let requestPayload = {
+            repository: this.repository,
+	        repositoryOwner: this.repositoryOwner,
             pullRequest: Number(this.pullRequest),
             mapping: mapping
         }
@@ -154,7 +159,10 @@ class App {
         
         form.append('requestPayload', requestPayloadStr);
         form.append('file', fs.createReadStream(zipFile)); 
-        const response = await fetch(this.serverUrl+"/analyze", {method: 'POST', body: form });
+        const headers = {
+            github: this.token
+        }
+        const response = await fetch(this.serverUrl+"/analyze", {method: 'POST', body: form, headers: headers});
 
 
         // const formData = new FormData()

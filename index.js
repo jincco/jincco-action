@@ -14,6 +14,7 @@ try {
   app.execFiles = parseArray(core.getInput('execFiles'));
   app.pullRequest = core.getInput('pullRequest');
   app.serverUrl = core.getInput('serverUrl');
+  app.token = core.getInput('token');
   app.execute()
   
 
