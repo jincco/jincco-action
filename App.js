@@ -28,6 +28,9 @@ class App {
      * perform the tick
      */
     async execute() {
+        console.log(`Repository name: ${this.repository}`);
+        console.log(`Repository owner: ${this.repositoryOwner}`);
+
         if (this.repository && this.repository.includes('/') && this.repositoryOwner){
             throw {
                 message: `Owner can be specified in an only input: 'repository' or 'repositoryOwner'`
