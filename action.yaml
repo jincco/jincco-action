@@ -24,6 +24,13 @@ inputs:
   token: 
     description: 'Github Token'
     required: true
+  repository:
+    description: 'Github repository in the format, either "repo_name" or "owner/repo_name"'
+    required: true
+    default: ${{ github.event.repository }}
+  repositoryOwner:
+    description: 'Github repositoryOwner'
+    required: false
 outputs:
   pullRequestCoverage: # id of output
     description: 'Pull request coverage'

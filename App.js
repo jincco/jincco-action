@@ -28,6 +28,28 @@ class App {
      * perform the tick
      */
     async execute() {
+        if (this.repository && this.repository.includes('/') && this.repositoryOwner){
+            throw {
+                message: `Owner can be specified in an only input: 'repository' or 'repositoryOwner'`
+            }
+        }
+
+        if (this.repository && this.repository.includes('/')) {
+            let parts = this.repository.split('/', 2);
+            this.repositoryOwner = parts[0];
+            this.repository = parts[1];
+        }
+        if (!this.repository) {
+            throw {
+                message: `Please specify 'repository' in the action configuration, either as <repo_name> or <owner>/<repo_name>`
+            }
+        }
+        if (!this.repositoryOwner) {
+            throw {
+                message: `Please specify 'repositoryOwner' in the action configuration`
+            }
+        }
+
         for (let i =0; i< this.sourceDirectories.length; i++) {
             this.sourceDirectories[i]=path.resolve(this.repoRootDirectory, this.sourceDirectories[i])
         }
