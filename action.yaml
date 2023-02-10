@@ -24,6 +24,7 @@ inputs:
   token: 
     description: 'Github Token'
     required: true
+    default: ${{ github.token }}
   repository:
     description: 'Github repository in the format, either "repo_name" or "owner/repo_name"'
     required: true

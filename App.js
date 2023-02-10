@@ -188,18 +188,22 @@ class App {
             github: this.token
         }
         const response = await fetch(this.serverUrl+"/analyze", {method: 'POST', body: form, headers: headers});
-
-
-        // const formData = new FormData()
-        // const zipFileUpload = new File( zipFile, { type: 'application/octet-stream' })
-
-        // formData.set('requestPayload', JSON.stringify(requestPayload))
-        // formData.set('file', zipFileUpload, 'target.zip')
-
-        // const response = await fetch(this.serverUrl+"/uploaddata", { method: 'POST', body: formData })
-        const data = await response.json()
-
-        console.log(data)
+        let data = null;
+        try {
+            data = await response.json()
+            console.log(data)
+        } catch (e) {
+            if (response.ok) {
+                let text = await response.text();
+                console.log("Response isn't JSON:", text, e)
+                throw e;
+            }
+        }
+        
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status} ${data.error}`;
+            throw new Error(message);
+        }
         
     }
 }
