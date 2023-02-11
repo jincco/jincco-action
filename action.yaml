@@ -22,8 +22,11 @@ inputs:
     required: true
     default: https://jinccov.com
   token: 
-    description: 'Github Token'
+    description: 'Github Token to be used to access pull request'
     default: ${{ github.token }}
+  tokenType: 
+    description: 'Type of GitHub token. GtHub Actions has type ACCESS_CODE, whereas legacy PAT has type PAR and Modern PATs are JWT'
+    default: ACCESS_CODE
   repository:
     description: 'Github repository in the format, either "repo_name" or "owner/repo_name"'
     required: true

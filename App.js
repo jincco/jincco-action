@@ -18,6 +18,7 @@ class App {
     serverUrl = null;
     repoRootDirectory = ".";
     token = null;
+    tokenType = null;
     repository = null;
 	repositoryOwner = null;
 
@@ -185,7 +186,8 @@ class App {
         form.append('requestPayload', requestPayloadStr);
         form.append('file', fs.createReadStream(zipFile)); 
         const headers = {
-            github: this.token
+            authToken: this.token,
+            authTokenType: this.tokenType
         }
         const response = await fetch(this.serverUrl+"/analyze", {method: 'POST', body: form, headers: headers});
         let data = null;

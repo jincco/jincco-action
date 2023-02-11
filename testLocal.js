@@ -9,7 +9,8 @@ try {
     app.pullRequest = '1';
     app.serverUrl = 'https://jinccov.com:8443';
     app.repository = 'jincco/demo-project';
-    //app.token = process.env.GITHUB_TOKEN;
+    app.tokenType = process.env.GITHUB_TOKEN_TYPE || 'PAT';
+    app.token = process.env.GITHUB_TOKEN;
     await app.execute()
 } catch (e) {
     console.log(e);
