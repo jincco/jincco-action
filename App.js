@@ -189,25 +189,24 @@ class App {
             authToken: this.token,
             authTokenType: this.tokenType
         }
-        const response = await fetch(this.serverUrl+"/analyze", {method: 'POST', body: form, headers: headers});
-        let dataTxt = null;
+        let url = this.serverUrl+"/analyze"
+        const response = await fetch(url, {method: 'POST', body: form, headers: headers});
+        
+        let dataTxt = await response.text();
+        console.log(`Executed request: POST ${url}, reponseStatus: ${response.status}, responseBody: ${dataTxt}`)
         let data = null;
         try {
-            dataTxt = await response.text();
             data = JSON.parse(dataTxt)
-            console.log(data)
         } catch (e) {
-            if (response.ok) {
-                console.log("Response isn't JSON:", dataTxt, e)
-                throw e;
-            }
+            // do nothing
         }
-        
-        if (!response.ok) {
+        if (!data) {
+            console.log(`Response isn't JSON, status ${response.status}, response: ${dataTxt}`)
+            throw new Error(`Unexpected response format: status ${response.status}, response: ${dataTxt}`);
+        } else if (!response.ok) {
             const message = `An error has occured: ${response.status} ${data.error}`;
             throw new Error(message);
         }
-        
     }
 }
 
