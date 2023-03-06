@@ -190,14 +190,15 @@ class App {
             authTokenType: this.tokenType
         }
         const response = await fetch(this.serverUrl+"/analyze", {method: 'POST', body: form, headers: headers});
+        let dataTxt = null;
         let data = null;
         try {
-            data = await response.json()
+            dataTxt = await response.text();
+            data = JSON.parse(dataTxt)
             console.log(data)
         } catch (e) {
             if (response.ok) {
-                let text = await response.text();
-                console.log("Response isn't JSON:", text, e)
+                console.log("Response isn't JSON:", dataTxt, e)
                 throw e;
             }
         }

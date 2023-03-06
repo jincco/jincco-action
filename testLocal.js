@@ -7,7 +7,7 @@ try {
     app.execFiles = ['build/jacoco/test.exec'];
     app.repoRootDirectory = "../demo-project"
     app.pullRequest = '1';
-    app.serverUrl = 'https://jinccov.com:8443';
+    app.serverUrl = 'https://jinccov.com';
     app.repository = 'jincco/demo-project';
     app.tokenType = process.env.GITHUB_TOKEN_TYPE || 'PAT';
     app.token = process.env.GITHUB_TOKEN;
