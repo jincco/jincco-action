@@ -9,6 +9,10 @@ inputs:
     description: 'Comma separated list of Jacoco XML reports relative to repository root'
     required: true
     default: 'build/reports/jacoco/test/jacocoTestReport.xml'
+  ignoreDirectories:
+    description: 'Comma separated list of source directories that should be ignored for incremental coverage'
+    required: true
+    default: 'src/test/java'
   pullRequest: 
     description: 'Pull request number'
     required: true

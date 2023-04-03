@@ -13,6 +13,7 @@ import FormData from 'form-data'
 class App {
     sourceDirectories = null;
     xmlReportFiles = null;
+    ignoreDirectories = null;
     pullRequest = null;
     serverUrl = null;
     repoRootDirectory = ".";
@@ -58,6 +59,12 @@ class App {
         }
         console.log(`Source Directories: ${this.sourceDirectories}`);
         this.validateDirectories(this.sourceDirectories);
+
+        for (let i =0; i< this.ignoreDirectories.length; i++) {
+            this.ignoreDirectories[i]=path.resolve(this.repoRootDirectory, this.ignoreDirectories[i])
+        }
+        console.log(`Ignore Directories: ${this.ignoreDirectories}`);
+        this.validateDirectories(this.ignoreDirectories);
         
         for (let i =0; i< this.xmlReportFiles.length; i++) {
             this.xmlReportFiles[i]=path.resolve(this.repoRootDirectory, this.xmlReportFiles[i])
@@ -99,6 +106,11 @@ class App {
         for (let i =0; i< this.sourceDirectories.length; i++) {
             let folder = "src/src"+i
             mapping[folder] = await this.resolveToRelativeRepoPath(repoRootDirectoryReal, this.sourceDirectories[i])
+        }
+
+        for (let i =0; i< this.ignoreDirectories.length; i++) {
+            let folder = "ignore/ignore"+i
+            mapping[folder] = await this.resolveToRelativeRepoPath(repoRootDirectoryReal, this.ignoreDirectories[i])
         }
 
         for (let i =0; i< this.xmlReportFiles.length; i++) {

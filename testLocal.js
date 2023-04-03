@@ -3,6 +3,7 @@ import App from './App.js';
 try {
     let app = new App()
     app.sourceDirectories = ['src/main/java'];
+    app.ignoreDirectories = ['src/test/java'];
     app.xmlReportFiles = ['build/reports/jacoco/test/jacocoTestReport.xml'];
     app.repoRootDirectory = "../demo-project"
     app.pullRequest = '1';
