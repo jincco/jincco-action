@@ -10,8 +10,7 @@ function parseArray(str) {
 try {
   let app = new App()
   app.sourceDirectories = parseArray(core.getInput('sourceDirectories'));
-  app.classDirectories = parseArray(core.getInput('classDirectories'));
-  app.execFiles = parseArray(core.getInput('execFiles'));
+  app.xmlReportFiles = parseArray(core.getInput('xmlReportFiles'));
   app.pullRequest = core.getInput('pullRequest');
   app.serverUrl = core.getInput('serverUrl');
   app.token = core.getInput('token');

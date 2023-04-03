@@ -5,14 +5,10 @@ inputs:
     description: 'Comma separated list of source directories relative to repository root'
     required: true
     default: 'src/main/java'
-  classDirectories:
-    description: 'Comma separated list of class directories relative to repository root'
+  xmlReportFiles:
+    description: 'Comma separated list of Jacoco XML reports relative to repository root'
     required: true
-    default: 'build/classes/java/main'
-  execFiles:
-    description: 'Comma separated list of Jacoco exec files relative to repository root'
-    required: true
-    default: 'build/jacoco/test.exec'
+    default: 'build/reports/jacoco/test/jacocoTestReport.xml'
   pullRequest: 
     description: 'Pull request number'
     required: true

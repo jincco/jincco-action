@@ -12,8 +12,7 @@ import FormData from 'form-data'
 
 class App {
     sourceDirectories = null;
-    classDirectories = null;
-    execFiles = null;
+    xmlReportFiles = null;
     pullRequest = null;
     serverUrl = null;
     repoRootDirectory = ".";
@@ -60,17 +59,11 @@ class App {
         console.log(`Source Directories: ${this.sourceDirectories}`);
         this.validateDirectories(this.sourceDirectories);
         
-        for (let i =0; i< this.classDirectories.length; i++) {
-            this.classDirectories[i]=path.resolve(this.repoRootDirectory, this.classDirectories[i])
+        for (let i =0; i< this.xmlReportFiles.length; i++) {
+            this.xmlReportFiles[i]=path.resolve(this.repoRootDirectory, this.xmlReportFiles[i])
         }
-        console.log(`Class Directories: ${this.classDirectories}`);
-        this.validateDirectories(this.classDirectories);
-        
-        for (let i =0; i< this.execFiles.length; i++) {
-            this.execFiles[i]=path.resolve(this.repoRootDirectory, this.execFiles[i])
-        }
-        console.log(`Exec files: ${this.execFiles}`);
-        this.validateFiles(this.execFiles);
+        console.log(`Jacoco XML reports: ${this.xmlReportFiles}`);
+        this.validateFiles(this.xmlReportFiles);
         
         console.log(`Pull Request: ${this.pullRequest}`);
         if (!this.pullRequest) {
@@ -78,7 +71,7 @@ class App {
             return
         }
 
-        let zipFile = "target.zip";
+        let zipFile = "report.zip";
         let mapping = await this.compressDirectories(zipFile)
 
         let requestPayload = {
@@ -105,20 +98,13 @@ class App {
         let mapping = {}
         for (let i =0; i< this.sourceDirectories.length; i++) {
             let folder = "src/src"+i
-            zip.addFolder(this.sourceDirectories[i], folder);
             mapping[folder] = await this.resolveToRelativeRepoPath(repoRootDirectoryReal, this.sourceDirectories[i])
         }
 
-        for (let i =0; i< this.classDirectories.length; i++) {
-            let folder = "classes/classes"+i
-            zip.addFolder(this.classDirectories[i], folder);
-            mapping[folder] = await this.resolveToRelativeRepoPath(repoRootDirectoryReal, this.classDirectories[i])
-        }
-
-        for (let i =0; i< this.execFiles.length; i++) {
-            let folder = "execFiles/execFile"+i
-            zip.addFile(this.execFiles[i], folder);
-            mapping[folder] = await this.resolveToRelativeRepoPath(repoRootDirectoryReal, this.execFiles[i])
+        for (let i =0; i< this.xmlReportFiles.length; i++) {
+            let folder = "xmlReportFiles/report"+i+".xml"
+            zip.addFile(this.xmlReportFiles[i], folder);
+            mapping[folder] = await this.resolveToRelativeRepoPath(repoRootDirectoryReal, this.xmlReportFiles[i])
         }
         
         // Generate zip file.
@@ -190,8 +176,9 @@ class App {
             authTokenType: this.tokenType
         }
         let url = this.serverUrl+"/analyze"
+        console.time("analyze");
         const response = await fetch(url, {method: 'POST', body: form, headers: headers});
-        
+        console.timeEnd("analyze");
         let dataTxt = await response.text();
         console.log(`Executed request: POST ${url}, reponseStatus: ${response.status}, responseBody: ${dataTxt}`)
         let data = null;
